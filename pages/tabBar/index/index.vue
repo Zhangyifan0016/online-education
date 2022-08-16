@@ -1,88 +1,55 @@
 <template>
 	<view>
 		<i-search-bar></i-search-bar>
-		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" style="height: 310rpx;">
-			<swiper-item class="flex justify-center" v-for="(item,index) in bannerData" :key="index">
-				<image :src="item.src" mode="aspectFill" style="width: 720rpx;height: 300rpx;" class="rounded shadow">
-				</image>
-			</swiper-item>
-		</swiper>
-		<view class="flex flex-wrap py-2">
-			<view style="width: 25%;" class="flex flex-column align-center justify-center py-1"
-				v-for="(item,index) in iconsData" :key="index">
-				<image style="width: 72rpx; height: 72rpx; border-radius: 100%;" :src="item.src" mode=""></image>
-				<text class="font-sm text-muted mt-1">{{item.name}}</text>
+		<i-swiper :data="bannerData"></i-swiper>
+		<i-icons :data="iconsData"></i-icons>
+		<i-coupon></i-coupon>
+		<view>
+			<view>
+				<view class="divider"></view>
+				<view class="flex align-center py-3 px-2">
+					<text class="font-md font-weight-bold">拼团</text>
+				</view>
+				<scroll-view scroll-x="true" class="scroll-row">
+					<view class="ml-2 mb-2 course-one scroll-row-item" v-for="(item,index) in groupData" :key="index">
+						<view class="position-relative">
+							<image :src="item.cover" mode=""></image>
+						</view>
+						<view class="flex flex-column flex-shrink">
+							<text class="text-ellipsis font-md mt-1">{{item.title}}</text>
+							<view class="flex flex-1 align-end">
+								<text class="font-md text-danger">￥{{item.price}}</text>
+								<text class="font-sm text-light-muted">￥{{item.t_price}}</text>
+							</view>
+						</view>
+					</view>
+				</scroll-view>
 			</view>
 		</view>
-		<view class="p-2">
-			<scroll-view class="scroll-row" scroll-x="true">
-				<div class="uni-scroll-view">
-					<div class="uni-scroll-view" style="overflow: auto hidden;">
-						<div class="uni-scroll-view-content">
-							<view class="coupon mr-2">
-								<view class="flex flex-column align-center justify-center p-2"
-									style="background-color: #d39e00;">
-									<text class="font-md">
-										<span>￥4.00</span>
-									</text>
-									<text class="font-sm">
-										<span>适用课程：中级经济法-知识点精讲课</span>
-									</text>
-								</view>
-								<view class="flex align-center justify-center font">领取</view>
-							</view>
-							<view class="coupon mr-2">
-								<view class="flex flex-column align-center justify-center p-2"
-									style="background-color: #d39e00;">
-									<text class="font-md">
-										<span>￥4.00</span>
-									</text>
-									<text class="font-sm">
-										<span>适用课程：中级经济法-知识点精讲课</span>
-									</text>
-								</view>
-								<view class="flex align-center justify-center font">领取</view>
-							</view>
-							<view class="coupon mr-2">
-								<view class="flex flex-column align-center justify-center p-2"
-									style="background-color: #d39e00;">
-									<text class="font-md">
-										<span>￥4.00</span>
-									</text>
-									<text class="font-sm">
-										<span>适用课程：中级经济法-知识点精讲课</span>
-									</text>
-								</view>
-								<view class="flex align-center justify-center font">领取</view>
-							</view>
-							<view class="coupon mr-2">
-								<view class="flex flex-column align-center justify-center p-2"
-									style="background-color: #d39e00;">
-									<text class="font-md">
-										<span>￥4.00</span>
-									</text>
-									<text class="font-sm">
-										<span>适用课程：中级经济法-知识点精讲课</span>
-									</text>
-								</view>
-								<view class="flex align-center justify-center font">领取</view>
-							</view>
-							<view class="coupon mr-2">
-								<view class="flex flex-column align-center justify-center p-2"
-									style="background-color: #d39e00;">
-									<text class="font-md">
-										<span>￥4.00</span>
-									</text>
-									<text class="font-sm">
-										<span>适用课程：中级经济法-知识点精讲课</span>
-									</text>
-								</view>
-								<view class="flex align-center justify-center font">领取</view>
-							</view>
-						</div>
-					</div>
-				</div>
-			</scroll-view>
+		<view>
+			<view class="divider"></view>
+			<view class="flex align-center justify-between py-3 px-2">
+				<text class="font-md font-weight-bold">{{newListTitle}}</text>
+				<text class="font-sm text-light-muted">查看更多</text>
+			</view>
+			<view>
+				<view class="course-two scroll-row-item p-2 flex" v-for="(item,index) in newListData" :key="index">
+					<view class="position-relative mr-2">
+						<image :src="item.cover"></image>
+					</view>
+					<view class="flex flex-column flex-shrink">
+						<text class="text-ellipsis font-md">{{item.title}}</text>
+						<view class="flex flex-1 align-end">
+							<text class="font-md text-danger">￥{{item.price}}</text>
+							<text class="font-sm text-light-muted">￥{{item.t_price}}</text>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+		<view>
+			<view class="divider"></view>
+			<image :src="lastImage" mode="aspectFill" style="width: 750rpx;height: 360rpx;"></image>
 		</view>
 	</view>
 </template>
@@ -92,11 +59,20 @@
 		data() {
 			return {
 				bannerData: [],
-				iconsData: []
+				iconsData: [],
+				groupData: [],
+				newListTitle:'',
+				newListData:[],
+				lastImage:'',
+				query: {
+					page: 1,
+					usable: 1
+				}
 			};
 		},
 		onLoad() {
 			this.getIndexData()
+			this.getGroup()
 		},
 		methods: {
 			getIndexData() {
@@ -110,42 +86,58 @@
 						console.log(res)
 						this.bannerData = res.data.data[1].data
 						this.iconsData = res.data.data[2].data
+						this.newListTitle=res.data.data[5].title
+						this.newListData=res.data.data[5].data
+						this.lastImage=res.data.data[6].data
 					}
 				});
 			},
+			getGroup() {
+				uni.request({
+					url: 'http://demonuxtapi.dishait.cn/mobile/group',
+					data: {
+						...this.query
+					},
+					header: {
+						'appid': 'bd9d01ecc75dbbaaefce'
+					},
+					success: (res) => {
+						console.log(res)
+						this.groupData = res.data.data.rows
+					}
+				});
+			}
 		},
 	}
 </script>
 
 <style>
-	.scroll-row {
-		white-space: nowrap;
-		width: 100%;
+	.divider {
+		height: 14rpx;
+		background-color: #f5f5f3;
 	}
-
-	.uni-scroll-view {
-		width: 100%;
-		height: 100%;
-		position: relative;
-		-webkit-overflow-scrolling: touch;
+	.course-one{
+		width: 340rpx;
 	}
-
-	.uni-scroll-view-content {
-		width: 100%;
-		height: 100%;
+	.course-one>view:first-child{
+		width: 340rpx;
+		height: 190rpx;
 	}
-
-	.coupon {
-		display: inline-flex;
-		color: white;
+	.course-one image{
+		width: 340rpx;
+		height: 190rpx;
 	}
-
-	.coupon>view:first-child {
-		border-right: 5rpx dashed;
+	.course-two>view:first-child{
+		width: 300rpx;
+		height: 170rpx;
+		flex-shrink: 1;
 	}
-
-	.coupon>view:last-child {
-		width: 130rpx;
-		background-color: #ffc107;
+	.course-two image{
+		width: 300rpx;
+		height: 170rpx;
+		flex-shrink: 1;
+	}
+	.course-two>view:last-child{
+		width: 395rpx;
 	}
 </style>
