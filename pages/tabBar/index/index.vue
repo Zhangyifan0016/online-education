@@ -57,6 +57,9 @@
 		onLoad() {
 			this.loadRequest()
 		},
+		onPullDownRefresh(){
+			this.loadRequest()
+		},
 		methods: {
 			async loadRequest() {
 				try {
@@ -64,8 +67,9 @@
 					await this.getCoupon()
 					await this.getActivity()
 					this.loadingStatus = true
+					uni.stopPullDownRefresh()
 				} catch (e) {
-					//TODO handle the exception
+					uni.stopPullDownRefresh()
 				}
 			},
 			async getIndexData() {
