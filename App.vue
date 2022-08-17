@@ -18,4 +18,5 @@
 	@import url("@/common/styles/common.css");
 	@import url("@/common/styles/animate.min.css");
 	@import url("@/common/iconfont/iconfont.css");
+	@import url("@/common/iconfont/iconfont1.css");
 </style>

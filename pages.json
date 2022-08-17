@@ -11,18 +11,29 @@
 		{
 			"path": "pages/tabBar/learn/learn",
 			"style": {
-				"navigationBarTitleText": "",
+				"navigationBarTitleText": "学习进度",
+				"navigationBarBackgroundColor": "#fff",
 				"enablePullDownRefresh": false
 			}
 		},
 		{
 			"path": "pages/tabBar/home/home",
 			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
+				"navigationBarTitleText": "我的",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#5CCC84",
+				"navigationBarTextStyle": "white"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/login/login",
+            "style": {
+            	"app-plus": {
+            		"titleNView": false
+            	}
+            }
+        }
+    ],
 	"tabBar": {
 		"color": "#BBBAC7",
 		"selectedColor": "#2C2C2C",

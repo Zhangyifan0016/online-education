@@ -1,0 +1,42 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 3530361 */
+  src: url("@/common/iconfont/iconfont1.ttf") format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-question:before {
+  content: "\e689";
+}
+
+
+.icon-yingyong:before {
+  content: "\e7b7";
+}
+
+.icon-coupon:before {
+  content: "\e8c0";
+}
+
+.icon-order:before {
+  content: "\e609";
+}
+
+.icon-star:before {
+  content: "\eb26";
+}
+
+.icon-message:before {
+  content: "\e8bd";
+}
+
+.icon-school:before {
+  content: "\e625";
+}
+
