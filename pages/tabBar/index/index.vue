@@ -1,13 +1,13 @@
 <template>
 	<view>
 		<block v-for="(item,index) in indexData" :key="index">
-			<i-search-bar v-if="item.type==='search'"></i-search-bar>
+			<i-search-bar v-if="item.type==='search'" :placeholder="item.placeholder"></i-search-bar>
 			<i-swiper v-if="item.type==='swiper'" :data="item.data"></i-swiper>
 			<i-icons v-if="item.type==='icons'" :data="item.data"></i-icons>
-			<i-coupon v-if="item.type==='coupon'"></i-coupon>
+			<i-coupon v-if="item.type==='coupon'" :data="couponData"></i-coupon>
 			<!-- 拼团 -->
 			<view v-if="item.type === 'promotion'">
-				<i-active-list :type="item.listType">
+				<i-active-list :type="item.listType" :data="groupData">
 					<template v-slot:divider>
 						<view class="divider"></view>
 					</template>
@@ -31,28 +31,37 @@
 </template>
 
 <script>
+	import IndexModel from "@/model/indexModel"
 	export default {
 		data() {
 			return {
 				indexData:[],
+				groupData:[],
+				couponData:[],
+				query: {
+					page: 1,
+					usable: 1
+				}
 			};
 		},
 		onLoad() {
 			this.getIndexData()
+			this.getGroup()
+			this.getCoupon()
 		},
 		methods: {
-			getIndexData() {
-				uni.request({
-					url: 'http://demonuxtapi.dishait.cn/mobile/index',
-					data: {},
-					header: {
-						'appid': 'bd9d01ecc75dbbaaefce'
-					},
-					success: (res) => {
-						this.indexData=res.data.data
-					}
-				});
+			async getIndexData() {
+				const response = await IndexModel.getIndexData()
+				this.indexData=response
 			},
+			async getGroup() {
+				const response = await IndexModel.getGroup(this.query)
+				this.groupData = response.rows
+			},
+			async getCoupon(){
+				const response=await IndexModel.getCoupon()
+				this.couponData=response
+			}
 		},
 	}
 </script>

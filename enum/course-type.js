@@ -2,5 +2,6 @@ export const courseType = {
 	media: "图文",
 	audio: "音频",
 	video: "视频",
-	column: "专栏"
+	column: "专栏",
+	course:"课程",
 }

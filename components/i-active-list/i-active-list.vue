@@ -5,7 +5,7 @@
 			<text class="font-md font-weight-bold">拼团</text>
 		</view>
 		<scroll-view scroll-x="true" class="scroll-row">
-			<i-course-list :type="type" v-for="(item,index) in groupData" :key="index" :item="item"></i-course-list>
+			<i-course-list :type="type" v-for="(item,index) in data" :key="index" :item="item"></i-course-list>
 		</scroll-view>
 	</view>
 </template>
@@ -18,34 +18,21 @@
 				type: String,
 				default: 'group'
 			},
+			data:{
+				type:Array,
+				default:()=>[]
+			}
 		},
 		data() {
 			return {
-				groupData: [],
-				query: {
-					page: 1,
-					usable: 1
-				}
+				
 			};
 		},
 		created() {
-			this.getGroup()
+			
 		},
 		methods: {
-			getGroup() {
-				uni.request({
-					url: 'http://demonuxtapi.dishait.cn/mobile/group',
-					data: {
-						...this.query
-					},
-					header: {
-						'appid': 'bd9d01ecc75dbbaaefce'
-					},
-					success: (res) => {
-						this.groupData = res.data.data.rows
-					}
-				});
-			}
+			
 		}
 	}
 </script>
