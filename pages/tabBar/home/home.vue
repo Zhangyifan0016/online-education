@@ -2,7 +2,7 @@
 	<view class="animate__animated animate__fadeInDown animate__faster">
 		<view class="home-bg"></view>
 		<view class="position-relative">
-			<view class="flex p-3">
+			<view class="flex p-3" @click="handleToLogin">
 				<image style="width: 123rpx;height: 123rpx;" class="rounded-circle bg-light" src=""></image>
 				<view class="flex flex-column pl-3 flex-1 text-white">
 					<view class="font-md mb-2">立即登录</view>
@@ -63,7 +63,21 @@
 		</view>
 	</view>
 </template>
-<script> </script>
+<script> 
+import { navigateTo } from '@/utils/navigate'
+	export default {
+		data() {
+			return {
+	
+			};
+		},
+		methods: {
+			handleToLogin() {
+				navigateTo('/pages/login/login')
+			}
+		},
+	}
+</script>
 <style>
 	.home-bg {
 		width: 750rpx;
