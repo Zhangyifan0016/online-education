@@ -25,6 +25,7 @@
 			},
 			type:{
 				type:String,
+				default:'activity'
 			}
 		},
 		data() {
@@ -41,19 +42,19 @@
 </script>
 
 <style>
-	.course-group{
+	.course-activity{
 		width: 340rpx;
 		margin-left: 20rpx;
 		margin-bottom: 20rpx;
 	}
-	.course-group>view:last-child>text:first-child{
+	.course-activity>view:last-child>text:first-child{
 		margin-top: 10rpx;
 	}
-	.course-group>view:first-child{
+	.course-activity>view:first-child{
 		width: 340rpx;
 		height: 190rpx;
 	} 
-	.course-group image{
+	.course-activity image{
 		width: 340rpx;
 		height: 190rpx;
 	}

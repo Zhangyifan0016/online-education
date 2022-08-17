@@ -1,13 +1,13 @@
 <template>
-	<view>
+	<view class="animate__animated animate__fadeIn animate__fast">
 		<block v-for="(item,index) in indexData" :key="index">
 			<i-search-bar v-if="item.type==='search'" :placeholder="item.placeholder"></i-search-bar>
 			<i-swiper v-if="item.type==='swiper'" :data="item.data"></i-swiper>
 			<i-icons v-if="item.type==='icons'" :data="item.data"></i-icons>
 			<i-coupon v-if="item.type==='coupon'" :data="couponData"></i-coupon>
-			<!-- 拼团 -->
+			<!-- 拼团 // 秒杀 -->
 			<view v-if="item.type === 'promotion'">
-				<i-active-list :type="item.listType" :data="groupData">
+				<i-active-list :type="item.listType" :data="activityData">
 					<template v-slot:divider>
 						<view class="divider"></view>
 					</template>
@@ -36,7 +36,7 @@
 		data() {
 			return {
 				indexData:[],
-				groupData:[],
+				activityData:[],
 				couponData:[],
 				query: {
 					page: 1,
@@ -44,24 +44,25 @@
 				}
 			};
 		},
-		onLoad() {
-			this.getIndexData()
-			this.getGroup()
-			this.getCoupon()
+		async onLoad() {
+			await this.getIndexData()
+			await this.getCoupon()
+			await this.getActivity()
 		},
 		methods: {
 			async getIndexData() {
 				const response = await IndexModel.getIndexData()
 				this.indexData=response
 			},
-			async getGroup() {
-				const response = await IndexModel.getGroup(this.query)
-				this.groupData = response.rows
-			},
 			async getCoupon(){
 				const response=await IndexModel.getCoupon()
 				this.couponData=response
-			}
+			},
+			async getActivity() {
+				const type = this.indexData.filter(item=> item.type === 'promotion')[0].listType
+				const response = await IndexModel.getActivity(type,this.query)
+				this.activityData = response.rows
+			},
 		},
 	}
 </script>

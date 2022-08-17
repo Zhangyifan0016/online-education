@@ -1,4 +1,5 @@
 import APIConfig from "@/config/config"
+import exceptionMessage from "@/config/exception-message"
 
 class Http {
 	// 请求拦截器

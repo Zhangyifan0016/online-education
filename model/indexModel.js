@@ -8,10 +8,10 @@ class IndexModel extends Http{
 		})
 	}
 	
-	// 获取拼团数据
-	static getGroup(query){
+	// 获取拼团 / 秒杀数据
+	static getActivity(type,query){
 		return Http.request({
-			url : '/mobile/group',
+			url : '/mobile/'+type,
 			data:{
 				...query
 			}
