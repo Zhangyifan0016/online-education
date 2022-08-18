@@ -18,3 +18,10 @@ export const switchTab = (url, options = {}) => {
 		...options
 	})
 }
+
+export const redirectTo = (url,options={})=>{
+	uni.redirectTo({
+		url: url,
+		...options
+	});
+}

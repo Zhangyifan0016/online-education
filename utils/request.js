@@ -1,13 +1,14 @@
 import APIConfig from "@/config/config"
 import exceptionMessage from "@/config/exception-message"
-
+import store from '@/store/index'
 class Http {
 	// 请求拦截器
 	static async beforeRequest(config) {
 		config.url = APIConfig.baseURL + config.url
-		config.header = {
-			appid: APIConfig.appid
-		}
+		const token = store.state.user.token
+		if(token) config.header.token = token
+		config.header.appid = APIConfig.appid
+	
 		return config
 	}
 	
